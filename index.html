@@ -17,18 +17,9 @@
     position:relative;
     transition:background 1.2s ease;
   }
-  /* Фон поздравления и далее: сверху фиолетовый, снизу синий */
-  body.stage-main {
-    background:linear-gradient(180deg,#2b1055 0%,#1e1b6b 45%,#0f3460 100%);
-  }
-  /* Интрига: экран 2 */
-  body.intro-2 {
-    background:linear-gradient(160deg,#5a1a5a 0%,#7a1a4a 60%,#8a1a3a 100%);
-  }
-  /* Интрига: экран 3 — яркий алый */
-  body.intro-3 {
-    background:linear-gradient(160deg,#8a1a3a 0%,#b01a2a 55%,#e01e1e 100%);
-  }
+  body.stage-main { background:linear-gradient(180deg,#2b1055 0%,#1e1b6b 45%,#0f3460 100%); }
+  body.intro-2 { background:linear-gradient(160deg,#5a1a5a 0%,#7a1a4a 60%,#8a1a3a 100%); }
+  body.intro-3 { background:linear-gradient(160deg,#8a1a3a 0%,#b01a2a 55%,#e01e1e 100%); }
 
   .sparkles { position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:0; }
   .sparkle { position:absolute; font-size:18px; animation:float 9s linear infinite; opacity:0.7; }
@@ -54,14 +45,15 @@
     color:#fff; text-decoration:none; padding:16px 28px; border-radius:50px;
     font-weight:600; font-size:16px; border:none; cursor:pointer;
     box-shadow:0 8px 24px rgba(255,107,157,0.45);
-    transition:transform 0.15s, left 0.45s ease, top 0.45s ease;
+    transition:transform 0.15s ease;
     width:100%;
   }
   .btn:active { transform:scale(0.97); }
   .btn.secondary { background:rgba(255,255,255,0.15); box-shadow:none; }
-  .btn-run { position:fixed; z-index:50; width:auto; }
+  
+  /* Анимация пульсации для кнопки Да */
+  .btn.pulse { transform:scale(1.05); }
 
-  /* Слайдер поздравления */
   .slider { position:relative; width:100%; aspect-ratio:1/1; border-radius:22px;
             overflow:hidden; margin-bottom:20px; background:rgba(0,0,0,0.25);
             display:flex; align-items:center; justify-content:center; }
@@ -76,12 +68,9 @@
   .slide.active .big-text span:nth-child(2) { animation-delay:0.3s; }
   .slide.active .big-text span:nth-child(3) { animation-delay:0.5s; }
   .slide.active .big-text span:nth-child(4) { animation-delay:0.7s; }
-  @keyframes lineIn {
-    to { opacity:1; transform:translateY(0); }
-  }
+  @keyframes lineIn { to { opacity:1; transform:translateY(0); } }
   .msg { font-size:16px; line-height:1.6; margin-bottom:22px; min-height:60px; }
 
-  /* Вопросы */
   .quiz { display:none; }
   .quiz.show { display:block; }
   .q { font-size:17px; margin-bottom:14px; line-height:1.4; }
@@ -98,7 +87,6 @@
   .answer-input.wrong { border-color:#ff5a5a; background:rgba(255,90,90,0.25); }
   .quiz-status { font-size:13px; opacity:0.75; min-height:20px; margin-bottom:8px; }
 
-  /* Купон */
   .coupon {
     display:none; margin-top:8px; position:relative;
     background:linear-gradient(135deg,#fff8e1,#ffe0b2);
@@ -124,25 +112,23 @@
   .status { margin-top:12px; font-size:13px; text-align:center; font-weight:600; }
   .status.active { color:#1b7a3d; }
 
-  /* Финал: скриншот */
   .final { display:none; margin-top:18px; padding:18px; border-radius:18px;
            background:rgba(255,255,255,0.12); border:1px dashed rgba(255,255,255,0.4); }
   .final.show { display:block; animation:pop 0.5s ease; }
   .final-title { font-size:18px; font-weight:700; margin-bottom:8px; }
   .final-desc { font-size:14px; line-height:1.5; opacity:0.9; }
 
-  /* ===== ТОРТ ===== */
   .cake-overlay {
     position:fixed; inset:0; z-index:80; display:none;
     align-items:center; justify-content:center;
     background:linear-gradient(180deg,#2b1055 0%,#1e1b6b 50%,#0f3460 100%);
   }
   .cake-overlay.show { display:flex; }
-  .cake-scene { position:relative; width:220px; height:220px; }
+  .cake-scene { position:relative; width:220px; height:260px; }
 
   .cake {
-    position:absolute; bottom:20px; left:50%; transform:translateX(-50%);
-    width:180px; height:120px; transition:transform 0.4s ease;
+    position:absolute; bottom:40px; left:50%; transform:translateX(-50%);
+    width:180px; height:120px; transition:transform 0.4s ease, opacity 0.6s ease;
   }
   .cake .plate {
     position:absolute; bottom:-10px; left:-10px; width:200px; height:18px;
@@ -176,12 +162,11 @@
     from { transform:translateX(-50%) scale(1); opacity:0.9; }
     to { transform:translateX(-50%) scale(1.15); opacity:1; }
   }
-  /* «Укусы»: каждый следующий укус уменьшает торт справа и сверху */
   .cake.bite-1 { clip-path:polygon(0 0, 100% 0, 100% 70%, 82% 70%, 82% 100%, 0 100%); }
   .cake.bite-2 { clip-path:polygon(0 0, 100% 0, 100% 45%, 60% 45%, 60% 100%, 0 100%); }
   .cake.bite-3 { clip-path:polygon(0 0, 100% 0, 100% 25%, 35% 25%, 35% 100%, 0 100%); }
   .cake.bite-4 { clip-path:polygon(0 0, 100% 0, 100% 0, 10% 0, 10% 100%, 0 100%); }
-  .cake.gone { transform:translateX(-50%) scale(0.6); opacity:0; transition:all 0.6s ease; }
+  .cake.gone { transform:translateX(-50%) scale(0.6); opacity:0; }
 
   .crumbs { position:absolute; inset:0; pointer-events:none; }
   .crumb {
@@ -194,7 +179,7 @@
     100% { opacity:0; transform:translate(var(--dx), var(--dy)) scale(0.4); }
   }
   .cake-caption {
-    position:absolute; bottom:-56px; left:50%; transform:translateX(-50%);
+    position:absolute; bottom:0; left:50%; transform:translateX(-50%);
     font-size:16px; opacity:0.85; white-space:nowrap;
   }
 </style>
@@ -205,7 +190,6 @@
 
 <div class="card" id="card">
 
-  <!-- ЭТАП 1: ИНТРИГА -->
   <div id="stage-intro">
     <h1 id="introTitle">То, что ты сейчас увидишь, повергнет тебя в шок…</h1>
     <p class="sub" id="introSub">Ты уверена, что хочешь это увидеть? 👀</p>
@@ -213,7 +197,6 @@
     <button class="btn secondary" id="introNo" style="margin-top:12px;">Нет, я боюсь</button>
   </div>
 
-  <!-- ЭТАП 2: ПОЗДРАВЛЕНИЕ -->
   <div id="stage-congrats" style="display:none;">
     <h1>С 15-летием, Котейка! 🎂</h1>
     <p class="sub">Читай внимательно. В этих строках спрятано кое-что важное ✨</p>
@@ -231,7 +214,6 @@
     <button class="btn" id="nextBtn">Дальше →</button>
   </div>
 
-  <!-- ЭТАП 3: ВОПРОСЫ -->
   <div class="quiz" id="quiz">
     <h1>Проверка на внимание 😏</h1>
     <p class="sub">Ответь на 3 вопроса — и купон твой.</p>
@@ -240,7 +222,6 @@
     <div class="quiz-status" id="quizStatus"></div>
   </div>
 
-  <!-- ЭТАП 4: КУПОН -->
   <div class="coupon" id="coupon">
     <div class="coupon-head">Фан-купон · 15 лет</div>
     <div class="coupon-title">Бесплатный чай 🍵</div>
@@ -261,7 +242,6 @@
 
 </div>
 
-<!-- ТОРТ (оверлей) -->
 <div class="cake-overlay" id="cakeOverlay">
   <div class="cake-scene">
     <div class="cake" id="cake">
@@ -278,10 +258,10 @@
 
 <script>
   const tg = window.Telegram?.WebApp;
-  if (tg) { tg.ready(); tg.expand(); tg.setHeaderColor('#2b1055'); }
-  const haptic = (type) => { if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred(type); };
+  if (tg) {
+    try { tg.ready(); tg.expand(); tg.setHeaderColor('#2b1055'); } catch (e) {}
+  }
 
-  /* ===== Искры ===== */
   const sparklesEl = document.getElementById('sparkles');
   const icons = ['✨','⭐','💫','🌟','🎉'];
   setInterval(() => {
@@ -294,7 +274,7 @@
     setTimeout(() => s.remove(), 11000);
   }, 900);
 
-  /* ===== ЭТАП 1: ИНТРИГА ===== */
+  /* ===== ЭТАП 1: ИНТРИГА (без убегания) ===== */
   const body = document.body;
   const stageIntro = document.getElementById('stage-intro');
   const introTitle = document.getElementById('introTitle');
@@ -308,51 +288,49 @@
     { t: 'Точно-точно уверена? 😳', s: 'Это может изменить всё... Ну что, смотрим?' },
     { t: 'Последний шанс передумать! 🙈', s: 'Точно-преточно уверена? Жми «Да»!' }
   ];
-  let introIdx = 0;
   let runCount = 0;
   const maxRuns = 3;
-
-  function moveYesButton() {
-    introYes.classList.add('btn-run');
-    const pad = 20;
-    const w = introYes.offsetWidth || 160;
-    const h = introYes.offsetHeight || 54;
-    const x = Math.random() * (window.innerWidth - w - pad*2) + pad;
-    const y = Math.random() * (window.innerHeight - h - pad*2) + pad;
-    introYes.style.left = x + 'px';
-    introYes.style.top = y + 'px';
-    haptic('light');
-  }
 
   introYes.addEventListener('click', () => {
     if (runCount < maxRuns) {
       runCount++;
-      introTitle.textContent = introSteps[Math.min(runCount, introSteps.length-1)].t;
-      introSub.textContent = introSteps[Math.min(runCount, introSteps.length-1)].s;
-      moveYesButton();
-      // Плавный переход фона: к 3-му экрану — яркий алый
+      const step = introSteps[Math.min(runCount, introSteps.length-1)];
+      introTitle.textContent = step.t;
+      introSub.textContent = step.s;
+      
+      // Легкая пульсация кнопки
+      introYes.classList.add('pulse');
+      setTimeout(() => introYes.classList.remove('pulse'), 150);
+
       if (runCount === 1) body.classList.add('intro-2');
       if (runCount === 2) body.classList.add('intro-3');
       return;
     }
-    // После 3 «уползаний» — торт, потом поздравление
+    
+    // Нажали 3 раза — запускаем торт
     stageIntro.style.display = 'none';
     body.classList.remove('intro-2','intro-3');
-    playCakeAnimation();
+    try {
+      playCakeAnimation();
+    } catch (e) {
+      cakeOverlay.classList.remove('show');
+      body.classList.add('stage-main');
+      stageCongrats.style.display = 'block';
+    }
   });
 
   introNo.addEventListener('click', () => {
     introSub.textContent = 'Ну вот, а я так старался... Ладно, жми «Да» 😄';
-    haptic('light');
   });
 
-  /* ===== ТОРТ: постепенно съедают ===== */
+  /* ===== ТОРТ ===== */
   const cakeOverlay = document.getElementById('cakeOverlay');
   const cake = document.getElementById('cake');
   const crumbs = document.getElementById('crumbs');
   const cakeCaption = document.getElementById('cakeCaption');
 
   function spawnCrumbs(n = 6) {
+    if (!crumbs) return;
     for (let i = 0; i < n; i++) {
       const c = document.createElement('div');
       c.className = 'crumb';
@@ -367,32 +345,45 @@
   }
 
   function playCakeAnimation() {
+    const safety = setTimeout(() => {
+      if (stageCongrats.style.display === 'none') {
+        cakeOverlay.classList.remove('show');
+        body.classList.add('stage-main');
+        stageCongrats.style.display = 'block';
+      }
+    }, 6000);
+
     cakeOverlay.classList.add('show');
     cakeCaption.textContent = 'Торт почти готов… 🎂';
-    haptic('medium');
 
     const bites = ['bite-1','bite-2','bite-3','bite-4'];
     let i = 0;
     const biteTimer = setInterval(() => {
-      if (i < bites.length) {
-        cake.classList.add(bites[i]);
-        spawnCrumbs(6);
-        haptic('light');
-        cakeCaption.textContent = ['Хрум! 😋','Ещё кусочек…','Почти всё!','Ням-ням!'][i] || 'Ням!';
-        i++;
-      } else {
+      try {
+        if (i < bites.length) {
+          cake.classList.add(bites[i]);
+          spawnCrumbs(6);
+          cakeCaption.textContent = ['Хрум! 😋','Ещё кусочек…','Почти всё!','Ням-ням!'][i] || 'Ням!';
+          i++;
+        } else {
+          clearInterval(biteTimer);
+          clearTimeout(safety);
+          cake.classList.add('gone');
+          cakeCaption.textContent = 'Всё съедено! 🎉';
+          setTimeout(() => {
+            cakeOverlay.classList.remove('show');
+            body.classList.add('stage-main');
+            stageCongrats.style.display = 'block';
+            const first = document.querySelector('#stage-congrats .slide.active');
+            if (first) { first.classList.remove('active'); void first.offsetWidth; first.classList.add('active'); }
+          }, 700);
+        }
+      } catch (e) {
         clearInterval(biteTimer);
-        cake.classList.add('gone');
-        cakeCaption.textContent = 'Всё съедено! 🎉';
-        haptic('success' in (tg?.HapticFeedback || {}) ? 'success' : 'medium');
-        setTimeout(() => {
-          cakeOverlay.classList.remove('show');
-          body.classList.add('stage-main');
-          stageCongrats.style.display = 'block';
-          // Запускаем появление первого слайда
-          const first = document.querySelector('#stage-congrats .slide.active');
-          if (first) { first.classList.remove('active'); void first.offsetWidth; first.classList.add('active'); }
-        }, 700);
+        clearTimeout(safety);
+        cakeOverlay.classList.remove('show');
+        body.classList.add('stage-main');
+        stageCongrats.style.display = 'block';
       }
     }, 600);
   }
@@ -476,7 +467,6 @@
 
     hintBtn.addEventListener('click', () => {
       quizStatus.textContent = 'Подсказка: ' + (q.hint || '—');
-      haptic('light');
     });
 
     function check() {
@@ -489,11 +479,9 @@
         input.classList.add('correct');
         correctCount++;
         quizStatus.textContent = 'Верно! ✅';
-        if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
       } else {
         input.classList.add('wrong');
         quizStatus.textContent = `Не то 😕 Правильный ответ: ${q.answers[0]}`;
-        if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
       }
 
       setTimeout(() => {
@@ -511,7 +499,6 @@
   function finishQuiz() {
     quizEl.classList.remove('show');
     couponEl.classList.add('show');
-    haptic('medium');
   }
 
   /* ===== ЭТАП 4: КУПОН ===== */
@@ -530,12 +517,14 @@
 
   const saved = localStorage.getItem('tea_coupon');
   if (saved) {
-    const data = JSON.parse(saved);
-    codeEl.textContent = data.code;
-    statusEl.textContent = 'Статус: активирован ✅';
-    statusEl.classList.add('active');
-    activateBtn.style.display = 'none';
-    finalEl.classList.add('show');
+    try {
+      const data = JSON.parse(saved);
+      codeEl.textContent = data.code;
+      statusEl.textContent = 'Статус: активирован ✅';
+      statusEl.classList.add('active');
+      activateBtn.style.display = 'none';
+      finalEl.classList.add('show');
+    } catch (e) {}
   }
 
   activateBtn.addEventListener('click', () => {
@@ -545,8 +534,7 @@
     statusEl.classList.add('active');
     activateBtn.style.display = 'none';
     finalEl.classList.add('show');
-    localStorage.setItem('tea_coupon', JSON.stringify({ code, issued: now.toISOString() }));
-    if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+    try { localStorage.setItem('tea_coupon', JSON.stringify({ code, issued: now.toISOString() })); } catch (e) {}
   });
 </script>
 </body>
